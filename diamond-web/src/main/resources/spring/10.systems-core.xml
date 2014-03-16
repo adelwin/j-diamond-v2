@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:task="http://www.springframework.org/schema/task"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/task/
+			http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	
+	<context:property-placeholder location="classpath:jdbc/jdbc-mysql.properties" />
+
+	<!-- the main data source -->
+	<bean id="targetDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"	value="${jdbc.driver}" />
+		<property name="url" 				value="${jdbc.url}" />
+		<property name="username"			value="${jdbc.username}" />
+		<property name="password"			value="${jdbc.password}" />
+	</bean>
+	<bean id="diamondDataSource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+		<property name="targetDataSource" ref="targetDataSource"/>		
+	</bean>
+	
+	<!-- alternatively when using JNDI resources -->
+	<!--
+	<bean id="targetDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="${jdbc.url}" />
+		<property name="resourceRef" value="false" />
+	</bean>
+	-->
+
+	<!-- Main MyBatis SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-cfg.xml" />
+		<property name="dataSource" ref="diamondDataSource" />
+	</bean>
+
+	<!-- Main Transaction Manager for MyBatis Dao Wired with Spring Datasource -->
+	<!-- chooses to use this transaction manager so that the team can use this configuration under any environment based on JDBC 3.0 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="diamondDataSource"/>
+	</bean>
+	
+	<!-- register the default transaction advice, wrapping around the default transaction manager -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<!-- defines the transaction attributes -->
+		<tx:attributes>
+			<!-- all methods use the default transaction settings (see below) -->
+			<tx:method name="get*"		propagation="REQUIRES_NEW" isolation="READ_COMMITTED" read-only="true"/>
+			<tx:method name="list*"		propagation="REQUIRES_NEW" isolation="READ_COMMITTED" read-only="true"/>
+			<tx:method name="update*"	propagation="REQUIRES_NEW" isolation="READ_COMMITTED" read-only="false"/>
+			<tx:method name="insert*"	propagation="REQUIRES_NEW" isolation="READ_COMMITTED" read-only="false"/>
+			<tx:method name="delete*"	propagation="REQUIRES_NEW" isolation="READ_COMMITTED" read-only="false"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- defines that the default transaction advice should wrap any execution from any method from any service -->
+	<aop:config>
+		<aop:pointcut expression="execution(* *.service.*.*(..))" id="serviceOperation"/>
+		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="serviceOperation"/>
+	</aop:config>
+	
+</beans>

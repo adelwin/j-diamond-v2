@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.si.diamond.web.model.LookupModel">
+
+	<resultMap type="org.si.diamond.web.model.LookupModel" id="rLookupModel">
+		<result property="lookupId"		column="lookup_id"		/>
+		<result property="lookupType"	column="lookup_type"	/>
+		<result property="lookupCode"	column="lookup_code"	/>
+		<result property="lookupValue"	column="lookup_value"	/>
+		<result property="isDefault"	column="is_default"		/>
+		<result property="sequenceNo"	column="sequence_no"	/>
+		<result property="attr1"		column="attr1"			/>
+		<result property="attr2"		column="attr2"			/>
+		<result property="attr3"		column="attr3"			/>
+		<result property="attr4"		column="attr4"			/>
+		<result property="createBy"		column="create_by"		/>
+		<result property="createDate"	column="create_date"	/>
+		<result property="updateBy"		column="update_by"		/>
+		<result property="updateDate"	column="update_date"	/>
+		<result property="status"		column="status"			/>
+	</resultMap>
+	
+	<sql id="base_select_lookup_model">
+		SELECT lookup_id,
+		       lookup_type,
+		       lookup_code,
+		       lookup_value,
+		       is_default,
+		       sequence_no,
+		       attr1,
+		       attr2,
+		       attr3,
+		       attr4,
+		       create_by,
+		       create_date,
+		       update_by,
+		       update_date,
+		       status
+		  FROM diamond_core_Lookups
+	</sql>
+	
+	<select id="getById" resultMap="rLookupModel">
+		<include refid="base_select_lookup_model"/>
+		<where>
+			lookup_id = #{lookupId}
+		</where>
+	</select>
+
+	<select id="getByCode" resultMap="rLookupModel">
+		<include refid="base_select_lookup_model"/>
+		<where>
+			lookup_code = #{lookupCode}
+		</where>
+	</select>
+
+	<select id="getByType" resultMap="rLookupModel">
+		<include refid="base_select_lookup_model"/>
+		<where>
+			lookup_type = #{lookupType}
+		</where>
+	</select>
+	
+	<select id="listAll" resultMap="rLookupModel">
+		<include refid="base_select_lookup_model"/>
+	</select>
+
+</mapper>

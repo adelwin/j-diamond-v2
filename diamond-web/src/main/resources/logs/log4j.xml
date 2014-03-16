@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd" >
+
+<log4j:configuration>
+	<appender name="FDebug" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="./logs/debug.log" />
+		<param name="threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%c].[%M]([%L]) [%t] - %m%n" />
+		</layout>
+	</appender>
+	<appender name="CDebug" class="org.apache.log4j.ConsoleAppender">
+		<param name="threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%c].[%M]([%L]) [%t] - %m%n " />
+		</layout>
+	</appender>
+	
+<!--	<logger name="com.si.diamond.web.task">-->
+<!--		<level value="error"/>-->
+<!--	</logger>-->
+	
+	<root>
+		<priority value="debug"></priority>
+		<appender-ref ref="CDebug" />
+<!-- 		<appender-ref ref="FDebug" /> -->
+	</root>
+</log4j:configuration>

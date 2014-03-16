@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:task="http://www.springframework.org/schema/task"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/task
+			http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<task:scheduler id="mainScheduler" pool-size="10"/>
+	
+	<!--  
+	<bean id="mailCheckerTask" class="org.si.diamond.web.task.MailCheckerTask" scope="prototype" depends-on="mailStore, ITransactionService">
+		<property name="mailStore" ref="mailStore"/>
+		<property name="messageService" ref="IMessageService"/>
+	</bean>
+	
+	<bean id="messageCheckerTask" class="org.si.diamond.web.task.MessageCheckerTask" scope="prototype" depends-on="mailSession, IMessageService, ITransactionService">
+		<property name="mailSession" ref="mailSession"/>
+		<property name="messageService" ref="IMessageService"/>
+		<property name="transactionService" ref="ITransactionService"/>
+	</bean>
+
+	<bean id="reportRequestCheckerTask" class="org.si.diamond.web.task.ReportRequestCheckerTask" scope="prototype" depends-on="mailStore, mailSession, IAccountService">
+		<property name="mailStore" ref="mailStore"/>
+		<property name="mailSession" ref="mailSession"/>
+		<property name="accountService" ref="IAccountService"/>
+	</bean>
+	
+	<bean id="exceptionRequestResponderTask" class="org.si.diamond.web.task.ExceptionRequestResponderTask" scope="prototype" depends-on="mailStore, IExceptionService, mailSession">
+		<property name="mailStore" ref="mailStore"/>
+		<property name="mailSession" ref="mailSession"/>
+		<property name="exceptionService" ref="IExceptionService"/>
+	</bean>
+
+	<bean id="registrationCheckerTask" class="org.si.diamond.web.task.RegistrationCheckerTask" scope="prototype" depends-on="mailStore, mailSession, IUserService">
+		<property name="mailStore" ref="mailStore"/>
+		<property name="mailSession" ref="mailSession"/>
+		<property name="userService" ref="IUserService"/>
+	</bean>
+	
+	<bean id="securityDetailsCheckerTask" class="org.si.diamond.web.task.SecurityDetailsCheckerTask" scope="prototype" depends-on="mailStore, mailSession, IUserService, IAccountService">
+		<property name="mailStore" ref="mailStore"/>
+		<property name="mailSession" ref="mailSession"/>
+		<property name="userService" ref="IUserService"/>
+		<property name="accountService" ref="IAccountService"/>
+	</bean>
+	-->
+	
+	<bean id="customTask" class="org.si.diamond.web.task.CustomTask" scope="prototype">
+	</bean>
+	
+	
+	<task:scheduled-tasks scheduler="mainScheduler">
+<!-- 		<task:scheduled ref="mailCheckerTask"				method="doTask" fixed-delay="100000"/> -->
+<!-- 		<task:scheduled ref="messageCheckerTask"			method="doTask" fixed-delay="100000"/> -->
+<!-- 		<task:scheduled ref="reportRequestCheckerTask"		method="doTask" fixed-delay="100000"/> -->
+<!-- 		<task:scheduled ref="registrationCheckerTask"		method="doTask" fixed-delay="100000"/> -->
+<!-- 		<task:scheduled ref="exceptionRequestResponderTask"	method="doTask" fixed-delay="100000"/> -->
+<!-- 		<task:scheduled ref="securityDetailsCheckerTask"	method="doTask" fixed-delay="100000"/> -->
+		<task:scheduled ref="customTask"					method="doTask" cron="10 * * * * *"/>
+	</task:scheduled-tasks>
+</beans>

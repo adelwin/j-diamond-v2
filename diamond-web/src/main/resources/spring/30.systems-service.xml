@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<bean id="defaultMessageParser" class="org.si.diamond.task.parser.DefaultMessageParser"/>
+
+	<bean id="ILookupService" class="org.si.diamond.web.service.impl.LookupServiceImpl">
+		<property name="lookupDao" ref="ILookupDao"/>
+	</bean>
+
+	<bean id="IUserService" class="org.si.diamond.web.service.impl.UserServiceImpl">
+		<property name="userDao" ref="IUserDao"/>
+	</bean>
+
+	<bean id="IUserRoleService" class="org.si.diamond.web.service.impl.UserRoleServiceImpl">
+		<property name="userRoleDao" ref="IUserRoleDao"/>
+	</bean>
+	
+	<!-- 
+	<bean id="ITransactionService" class="org.si.diamond.web.service.impl.TransactionServiceImpl">
+		<property name="txMessageDao" ref="ITxMessageDao"/>
+		<property name="txTransactionDao" ref="ITxTransactionDao"/>
+		<property name="txAccountDao" ref="ITxAccountDao"/>
+		<property name="messageParser" ref="defaultMessageParser"/>
+	</bean>
+	
+	<bean id="IAccountService" class="org.si.diamond.web.service.impl.AccountServiceImpl">
+		<property name="txAccountDao" ref="ITxAccountDao"/>
+		<property name="txTransactionDao" ref="ITxTransactionDao"/>
+		<property name="txAccountMovementDao" ref="IAccountMovementDao"/>
+		<property name="mailStore" ref="mailStore"/>
+	</bean>
+
+	<bean id="IMessageService" class="org.si.diamond.web.service.impl.MessageServiceImpl">
+		<property name="txMessageDao" ref="ITxMessageDao"/>
+	</bean>
+	
+	<bean id="IExceptionService" class="org.si.diamond.web.service.impl.ExceptionServiceImpl">
+		<property name="exceptionDao" ref="ITxExceptionDao"/>
+	</bean>
+	
+	<bean id="IUserService" class="org.si.diamond.web.service.impl.UserServiceImpl">
+		<property name="masterUserDao" ref="IMasterUserDao"/>
+	</bean>
+	
+	-->
+</beans>

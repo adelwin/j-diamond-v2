@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.si.diamond.web.model.UserModel">
+
+	<resultMap type="org.si.diamond.web.model.UserModel" id="rUserModel">
+		<result property="userId"		column="user_id"		/>
+		<result property="userCode"		column="user_code"		/>
+		<result property="userName"		column="user_name"		/>
+		<result property="userRoleId"	column="user_role_id"	/>
+		<result property="supervisorId"	column="supervisor_id"	/>
+		<result property="userStatus"	column="user_status"	/>
+		<result property="attr1"		column="attr1"			/>
+		<result property="attr2"		column="attr2"			/>
+		<result property="attr3"		column="attr3"			/>
+		<result property="attr4"		column="attr4"			/>
+		<result property="createBy"		column="create_by"		/>
+		<result property="createDate"	column="create_date"	/>
+		<result property="updateBy"		column="update_by"		/>
+		<result property="updateDate"	column="update_date"	/>
+		<result property="status"		column="status"			/>
+	</resultMap>
+	
+	<sql id="base_select_user_model">
+		SELECT user_id,
+		       user_code,
+		       user_name,
+		       user_role_id,
+		       supervisor_id,
+		       user_status,
+		       attr1,
+		       attr2,
+		       attr3,
+		       attr4,
+		       create_by,
+		       create_date,
+		       update_by,
+		       update_date,
+		       status
+		  FROM diamond_core_users
+	</sql>
+	
+	<select id="getById" resultMap="rUserModel">
+		<include refid="base_select_user_model"/>
+		<where>
+			user_id = #{userId}
+		</where>
+	</select>
+
+	<select id="getByCode" resultMap="rUserModel">
+		<include refid="base_select_user_model"/>
+		<where>
+			user_code = #{userCode}
+		</where>
+	</select>
+
+	<select id="getByRole" resultMap="rUserModel">
+		<include refid="base_select_user_model"/>
+		<where>
+			user_role_id = #{userRoleId}
+		</where>
+	</select>
+
+	<select id="getByCriteria" resultMap="rUserModel">
+		<include refid="base_select_user_model"/>
+		<where>
+			<if test="userId != null">
+				user_id = #{userId}
+			</if>
+			<if test="userCode != null">
+				AND user_code = #{userCode}
+			</if>
+			<if test="userName != null">
+				AND user_name LIKE #{userName}
+			</if>
+			<if test="userRoleId != null">
+				AND user_role_id = #{userRoleId}
+			</if>
+			<if test="supervisorId != null">
+				AND supervisor_id = #{supervisorId}
+			</if>
+			<if test="userStatus != null">
+				AND user_status = #{userStatus}
+			</if>
+			<if test="attr1 != null">
+				AND attr1 = #{attr1}
+			</if>
+			<if test="attr2 != null">
+				AND attr2 = #{attr2}
+			</if>
+			<if test="attr3 != null">
+				AND attr3 = #{attr3}
+			</if>
+			<if test="attr4 != null">
+				AND attr4 = #{attr4}
+			</if>
+			<if test="createBy != null">
+				AND create_by = #{createBy}
+			</if>
+			<if test="createDate != null">
+				AND create_date = #{createDate}
+			</if>
+			<if test="updateBy != null">
+				AND update_by = #{updateBy}
+			</if>
+			<if test="updateDate != null">
+				AND update_date = #{updateDate}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+		</where>
+	</select>
+	
+	<select id="listAll" resultMap="rUserModel">
+		<include refid="base_select_user_model"/>
+	</select>
+
+</mapper>
