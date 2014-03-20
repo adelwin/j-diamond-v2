@@ -18,6 +18,8 @@
 		<property name="lookupService" ref="ILookupService"/>
 		<property name="userService" ref="IUserService"/>
 		<property name="userRoleService" ref="IUserRoleService"/>
+		<property name="passwordService" ref="IPasswordService"/>
+		<property name="mailService" ref="IMailService"/>
 	</bean>
 
 </beans>

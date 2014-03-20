@@ -61,7 +61,7 @@
 		</where>
 	</select>
 
-	<select id="getByCriteria" resultMap="rUserModel">
+	<select id="getListByExample" resultMap="rUserModel">
 		<include refid="base_select_user_model"/>
 		<where>
 			<if test="userId != null">

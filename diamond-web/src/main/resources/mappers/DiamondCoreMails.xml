@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ File Name	: $filename
+  ~ Author		: @$user.name
+  ~ Created Date	: $date $time
+  ~
+  ~ Copyright (c) 2014 Solveware Independent. All Rights Reserved. <BR/>
+  ~ <BR/>
+  ~ This software contains confidential and proprietary information of Solveware Independent.<BR/>
+  -->
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.si.diamond.web.model.UserRoleModel">
+<mapper namespace="org.si.diamond.web.model.MailModel">
 
-	<resultMap type="org.si.diamond.web.model.UserRoleModel" id="rUserRoleModel">
-		<result property="userRoleId"	column="user_role_id"	/>
-		<result property="userRoleName"	column="user_role_name"	/>
-		<result property="loginLevel"	column="login_level"	/>
+	<resultMap type="org.si.diamond.web.model.MailModel" id="rMailModel">
+		<result property="mailId"		column="mail_id"		/>
+		<result property="mailAddress"	column="mail_address"	/>
+		<result property="userId"	    column="user_id"	/>
 		<result property="attr1"		column="attr1"			/>
 		<result property="attr2"		column="attr2"			/>
 		<result property="attr3"		column="attr3"			/>
@@ -18,10 +28,10 @@
 		<result property="status"		column="status"			/>
 	</resultMap>
 	
-	<sql id="base_select_user_role_model">
-		SELECT user_role_id,
-		       user_role_name,
-		       login_level
+	<sql id="base_select_mail_model">
+		SELECT mail_id,
+		       mail_address,
+		       user_id,
 		       attr1,
 		       attr2,
 		       attr3,
@@ -31,34 +41,27 @@
 		       update_by,
 		       update_date,
 		       status
-		  FROM diamond_core_user_roles
+		  FROM diamond_core_mails
 	</sql>
 	
-	<select id="getById" resultMap="rUserRoleModel">
-		<include refid="base_select_user_role_model"/>
+	<select id="getById" resultMap="rMailModel">
+		<include refid="base_select_mail_model"/>
 		<where>
-			user_role_id = #{userRoleId}
+			mail_id = #{mailId}
 		</where>
 	</select>
 
-	<select id="getByName" resultMap="rUserRoleModel">
-		<include refid="base_select_user_role_model"/>
+	<select id="getListByExample" resultMap="rMailModel">
+		<include refid="base_select_mail_model"/>
 		<where>
-			user_role_name = #{userRoleName}
-		</where>
-	</select>
-
-	<select id="getListByExample" resultMap="rUserRoleModel">
-		<include refid="base_select_user_role_model"/>
-		<where>
-			<if test="userRoleId != null">
-				user_role_id = #{userRoleId}
+			<if test="mailId != null">
+				mail_id = #{mailId}
 			</if>
-			<if test="userRoleName != null">
-				AND user_role_name = #{userRoleName}
+			<if test="mailAddress != null">
+				AND mail_address = #{mailAddress}
 			</if>
-			<if test="loginLevel != null">
-				AND login_level LIKE #{loginLevel}
+			<if test="userId != null">
+				AND user_id = #{userId}
 			</if>
 			<if test="attr1 != null">
 				AND attr1 = #{attr1}
@@ -89,9 +92,9 @@
 			</if>
 		</where>
 	</select>
-	
-	<select id="listAll" resultMap="rUserRoleModel">
-		<include refid="base_select_user_role_model"/>
+
+	<select id="listAll" resultMap="rMailModel">
+		<include refid="base_select_mail_model"/>
 	</select>
 
 </mapper>

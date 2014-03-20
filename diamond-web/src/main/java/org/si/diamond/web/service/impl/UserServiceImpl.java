@@ -1,7 +1,5 @@
 package org.si.diamond.web.service.impl;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.si.diamond.base.dao.IBaseDao;
 import org.si.diamond.base.exception.BaseDaoException;
@@ -10,12 +8,14 @@ import org.si.diamond.base.service.impl.BaseServiceImpl;
 import org.si.diamond.web.model.UserModel;
 import org.si.diamond.web.service.IUserService;
 
+import java.util.List;
+
 public class UserServiceImpl extends BaseServiceImpl implements IUserService {
-	
+
 	protected Logger logger = Logger.getLogger(UserServiceImpl.class);
-	
+
 	private IBaseDao<String, UserModel> userDao;
-	
+
 	public IBaseDao<String, UserModel> getUserDao() {
 		return userDao;
 	}
@@ -74,7 +74,8 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
 			criterion.setUserName("%" + name + "%");
 			criterion.setUserStatus("ACTIVE_US");
 			criterion.setStatus("ACTIVE_RS");
-			List<UserModel> result = this.getUserDao().customSelect(criterion, "getByCriteria");
+			List<UserModel> result = this.getUserDao().getListByExample(criterion);
+			//List<UserModel> result = this.getUserDao().customSelect(criterion, "getListByExample");
 			if (result.size() == 0) {
 				return null;
 			} else {

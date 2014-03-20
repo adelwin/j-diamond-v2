@@ -5,6 +5,6 @@
 		<title>Hello World</title> 
 	</head> 
 	<body> 
-		welcome <s:textfield name="lookup.lookupCode" />
+		welcomes <s:textfield name="lookup.lookupCode" />
 	</body> 
 </html>

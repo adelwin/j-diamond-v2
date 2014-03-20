@@ -6,5 +6,7 @@
 		<mapper resource="mappers/DiamondCoreLookups.xml"/>
 		<mapper resource="mappers/DiamondCoreUsers.xml"/>
 		<mapper resource="mappers/DiamondCoreUserRoles.xml"/>
+		<mapper resource="mappers/DiamondCorePasswords.xml"/>
+		<mapper resource="mappers/DiamondCoreMails.xml"/>
 	</mappers>
 </configuration>

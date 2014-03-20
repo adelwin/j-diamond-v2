@@ -17,12 +17,10 @@ import org.apache.log4j.Logger;
 import org.si.diamond.base.action.BaseAction;
 import org.si.diamond.base.exception.BaseActionException;
 import org.si.diamond.base.exception.BaseServiceException;
-import org.si.diamond.web.model.LookupModel;
-import org.si.diamond.web.model.UserModel;
-import org.si.diamond.web.model.UserRoleModel;
-import org.si.diamond.web.service.ILookupService;
-import org.si.diamond.web.service.IUserRoleService;
-import org.si.diamond.web.service.IUserService;
+import org.si.diamond.base.exception.CipherException;
+import org.si.diamond.base.util.CipherUtil;
+import org.si.diamond.web.model.*;
+import org.si.diamond.web.service.*;
 
 /**
  * Type Name : HelloAction Package : sme-web Author : adelwin.handoyo Created :
@@ -35,6 +33,8 @@ public class HelloAction extends BaseAction {
 	private ILookupService lookupService;
 	private IUserService userService;
 	private IUserRoleService userRoleService;
+	private IPasswordService passwordService;
+	private IMailService mailService;
 	
 	private String name;
 	private LookupModel lookup;
@@ -79,31 +79,68 @@ public class HelloAction extends BaseAction {
 		this.userRoleService = userRoleService;
 	}
 
+	public IPasswordService getPasswordService() {
+		return passwordService;
+	}
+
+	public void setPasswordService(IPasswordService passwordService) {
+		this.passwordService = passwordService;
+	}
+
+	public IMailService getMailService() {
+		return mailService;
+	}
+
+	public void setMailService(IMailService mailService) {
+		this.mailService = mailService;
+	}
+
 	@Override
 	public String action() throws BaseActionException {
 		try {
 			logger.debug("on action method of hello action");
+
+			logger.debug("Testing named parameter");
+			logger.debug("name is " + this.name);
+
+			logger.debug("Testing Lookups");
 			List<LookupModel> lookups = lookupService.getLookupByType("");
 			this.lookup = lookups.get(0);
 			logger.debug(lookups);
-			
-			logger.debug("name is " + this.name);
-			
+
+			logger.debug("Testing Users");
 			List<UserModel> userList = this.userService.getUserByName("Adelwin");
 			logger.debug("user id is " + userList.get(0).getUserId());
 			logger.debug("user role id = " + userList.get(0).getUserRoleId());
-			
+
+			logger.debug("Testing User Roles");
 			UserRoleModel role = this.userRoleService.getRoleById(userList.get(0).getUserRoleId());
 			logger.debug("user role name = " + role.getUserRoleName());
-			
+
+			logger.debug("Testing Password");
+			List<PasswordModel> passwords = this.getPasswordService().getPasswordListByUserId(userList.get(0).getUserId());
+			logger.debug("encrypted password is " + passwords.get(0).getPasswordValue());
+			logger.debug("decrypted password is " + this.getPasswordService().decrypt(passwords.get(0).getPasswordValue(), passwords.get(0).getPasswordSalt()));
+
+			logger.debug("Testing Mails");
+			MailModel mail1 = this.getMailService().getByAddress("adelwin@gmail.com");
+			logger.debug("mail owner is " + mail1.getUserId());
+			List<MailModel> mails = this.getMailService().getByUser(userList.get(0).getUserId());
+			logger.debug("mails are " + mails.toArray());
+
+			logger.debug("Testing exception handling");
 			if (userList.get(0).getUserId().equals("8")) {
 				throw new BaseActionException("test");
+			} else {
+				return SUCCESS;
 			}
 		} catch (BaseServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new BaseActionException(e.getMessage(), e);
+		} catch (CipherException e) {
+			logger.error(e.getMessage(), e);
+			throw new BaseActionException(e.getMessage(), e);
 		} finally {
 		}
-		return SUCCESS;
 	}
 }

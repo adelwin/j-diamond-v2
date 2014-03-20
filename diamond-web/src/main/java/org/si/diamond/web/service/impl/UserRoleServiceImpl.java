@@ -27,7 +27,7 @@ public class UserRoleServiceImpl extends BaseServiceImpl implements IUserRoleSer
 	@Override
 	public UserRoleModel getRoleById(String userRoleId) throws BaseServiceException {
 		try {
-			return this.userRoleDao.getById(userRoleId);
+			return this.getUserRoleDao().getById(userRoleId);
 		} catch (BaseDaoException e) {
 			logger.error(e.getMessage(), e);
 			throw new BaseServiceException(e.getMessage(), e);
@@ -37,7 +37,7 @@ public class UserRoleServiceImpl extends BaseServiceImpl implements IUserRoleSer
 	@Override
 	public List<UserRoleModel> getUserRoleListByCriteria(UserRoleModel criterion) throws BaseServiceException {
 		try {
-			return this.userRoleDao.getListByExample(criterion);
+			return this.getUserRoleDao().getListByExample(criterion);
 		} catch (BaseDaoException e) {
 			logger.error(e.getMessage(), e);
 			throw new BaseServiceException(e.getMessage(), e);
@@ -49,7 +49,7 @@ public class UserRoleServiceImpl extends BaseServiceImpl implements IUserRoleSer
 		try {
 			UserRoleModel criterion = new UserRoleModel();
 			criterion.setStatus("ACTIVE_RS");
-			return this.userRoleDao.getListByExample(criterion);
+			return this.getUserRoleDao().getListByExample(criterion);
 		} catch (BaseDaoException e) {
 			logger.error(e.getMessage(), e);
 			throw new BaseServiceException(e.getMessage(), e);

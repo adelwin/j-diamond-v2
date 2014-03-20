@@ -33,4 +33,13 @@
 		<property name="modelClass" value="org.si.diamond.web.model.UserRoleModel"/>
 	</bean>
 
+	<bean id="IPasswordDao" class="org.si.diamond.base.dao.impl.BaseDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="modelClass" value="org.si.diamond.web.model.PasswordModel"/>
+	</bean>
+
+	<bean id="IMailDao" class="org.si.diamond.base.dao.impl.BaseDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="modelClass" value="org.si.diamond.web.model.MailModel"/>
+	</bean>
 </beans>
