@@ -11,6 +11,7 @@ public class LoginContext extends BaseContext {
 
 	public static final String KEY_LOGIN_CONTEXT = "KEY_LOGIN_CONTEXT";
 	public static final String KEY_USER_ID = "KEY_USER_ID";
+	public static final String KEY_USER_CODE = "KEY_USER_CODE";
 	public static final String KEY_USER_NAME = "KEY_USER_NAME";
 	public static final String KEY_USER_ROLE = "KEY_USER_ROLE";
 	

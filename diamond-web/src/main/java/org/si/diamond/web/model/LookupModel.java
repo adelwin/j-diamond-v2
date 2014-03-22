@@ -2,6 +2,8 @@ package org.si.diamond.web.model;
 
 import org.si.diamond.base.model.CommonModel;
 
+import java.util.List;
+
 public class LookupModel extends CommonModel {
 	private static final long serialVersionUID = 3058027014693909279L;
 	
@@ -11,6 +13,7 @@ public class LookupModel extends CommonModel {
 	private String lookupValue;
 	private String isDefault;
 	private Integer sequenceNo;
+	private List<LookupModel> child;
 	
 	public String getLookupId() {
 		return lookupId;
@@ -48,5 +51,10 @@ public class LookupModel extends CommonModel {
 	public void setSequenceNo(Integer sequenceNo) {
 		this.sequenceNo = sequenceNo;
 	}
-	
+	public List<LookupModel> getChild() {
+		return child;
+	}
+	public void setChild(List<LookupModel> child) {
+		this.child = child;
+	}
 }

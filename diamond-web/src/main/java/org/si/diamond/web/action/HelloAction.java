@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.si.diamond.base.action.BaseAction;
+import org.si.diamond.base.context.LoginContext;
 import org.si.diamond.base.exception.BaseActionException;
 import org.si.diamond.base.exception.BaseServiceException;
 import org.si.diamond.base.exception.CipherException;
@@ -35,7 +36,9 @@ public class HelloAction extends BaseAction {
 	private IUserRoleService userRoleService;
 	private IPasswordService passwordService;
 	private IMailService mailService;
-	
+	private IAccountService accountService;
+	private IAuthenticationService authenticationService;
+
 	private String name;
 	private LookupModel lookup;
 	
@@ -95,6 +98,22 @@ public class HelloAction extends BaseAction {
 		this.mailService = mailService;
 	}
 
+	public IAccountService getAccountService() {
+		return accountService;
+	}
+
+	public void setAccountService(IAccountService accountService) {
+		this.accountService = accountService;
+	}
+
+	public IAuthenticationService getAuthenticationService() {
+		return authenticationService;
+	}
+
+	public void setAuthenticationService(IAuthenticationService authenticationService) {
+		this.authenticationService = authenticationService;
+	}
+
 	@Override
 	public String action() throws BaseActionException {
 		try {
@@ -105,8 +124,11 @@ public class HelloAction extends BaseAction {
 
 			logger.debug("Testing Lookups");
 			List<LookupModel> lookups = lookupService.getLookupByType("");
+
 			this.lookup = lookups.get(0);
 			logger.debug(lookups);
+
+			logger.debug(this.getLookupService().findLookupByCode(null, "LITERAL_A"));
 
 			logger.debug("Testing Users");
 			List<UserModel> userList = this.userService.getUserByName("Adelwin");
@@ -127,6 +149,14 @@ public class HelloAction extends BaseAction {
 			logger.debug("mail owner is " + mail1.getUserId());
 			List<MailModel> mails = this.getMailService().getByUser(userList.get(0).getUserId());
 			logger.debug("mails are " + mails.toArray());
+
+			LoginContext loginContext = this.getAuthenticationService().authenticate("adelwin", "p01ntbl4nk1");
+			logger.debug("authenticated!!");
+
+			logger.debug("testing accounts");
+			AccountModel account = this.getAccountService().getAccountById("1");
+			account.setAccountName("Testing Update");
+			this.getAccountService().updateAccount(loginContext, account);
 
 			logger.debug("Testing exception handling");
 			if (userList.get(0).getUserId().equals("8")) {

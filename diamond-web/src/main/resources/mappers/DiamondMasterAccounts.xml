@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ File Name	: $filename
+  ~ Author		: @$user.name
+  ~ Created Date	: $date $time
+  ~
+  ~ Copyright (c) 2014 Solveware Independent. All Rights Reserved. <BR/>
+  ~ <BR/>
+  ~ This software contains confidential and proprietary information of Solveware Independent.<BR/>
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.si.diamond.web.model.AccountModel">
+
+	<resultMap type="org.si.diamond.web.model.AccountModel" id="rAccountModel">
+		<result property="accountId"			column="account_id"				/>
+		<result property="accountName"			column="account_name"			/>
+		<result property="accountDescription"	column="account_description"	/>
+		<result property="accountCurrency"		column="account_currency"		/>
+		<result property="accountStatus"		column="account_status"			/>
+		<result property="attr1"				column="attr1"					/>
+		<result property="attr2"				column="attr2"					/>
+		<result property="attr3"				column="attr3"					/>
+		<result property="attr4"				column="attr4"					/>
+		<result property="createBy"				column="create_by"				/>
+		<result property="createDate"			column="create_date"			/>
+		<result property="updateBy"				column="update_by"				/>
+		<result property="updateDate"			column="update_date"			/>
+		<result property="status"				column="status"					/>
+	</resultMap>
+	
+	<sql id="base_select">
+		SELECT account_id,
+		       account_name,
+		       account_description,
+		       account_currency,
+		       account_status,
+		       attr1,
+		       attr2,
+		       attr3,
+		       attr4,
+		       create_by,
+		       create_date,
+		       update_by,
+		       update_date,
+		       status
+		  FROM diamond_master_accounts
+	</sql>
+
+	<select id="getById" resultMap="rAccountModel">
+		<include refid="base_select"/>
+		<where>
+			account_id = #{accountId}
+		</where>
+	</select>
+
+	<select id="listAll" resultMap="rAccountModel">
+		<include refid="base_select"/>
+	</select>
+
+	<select id="getListByExample" resultMap="rAccountModel">
+		<include refid="base_select"/>
+		<where>
+			<if test="accountId != null">
+				account_id = #{accountId}
+			</if>
+			<if test="accountName != null">
+				AND account_name = #{accountName}
+			</if>
+			<if test="accountDescription != null">
+				AND account_description LIKE #{accountDescription}
+			</if>
+			<if test="accountCurrency != null">
+				AND account_currency LIKE #{accountCurrency}
+			</if>
+			<if test="accountStatus != null">
+				AND account_status LIKE #{accountStatus}
+			</if>
+			<if test="attr1 != null">
+				AND attr1 = #{attr1}
+			</if>
+			<if test="attr2 != null">
+				AND attr2 = #{attr2}
+			</if>
+			<if test="attr3 != null">
+				AND attr3 = #{attr3}
+			</if>
+			<if test="attr4 != null">
+				AND attr4 = #{attr4}
+			</if>
+			<if test="createBy != null">
+				AND create_by = #{createBy}
+			</if>
+			<if test="createDate != null">
+				AND create_date = #{createDate}
+			</if>
+			<if test="updateBy != null">
+				AND update_by = #{updateBy}
+			</if>
+			<if test="updateDate != null">
+				AND update_date = #{updateDate}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert">
+		insert into DIAMOND_MASTER_ACCOUNTS
+		          ( account_id  , account_name  , account_description  , account_currency  , account_status  , attr1   , attr2   , attr3   , attr4   , create_by  , create_date  , update_by  , update_date  , status)
+		   values ( #{accountId}, #{accountName}, #{accountDescription}, #{accountCurrency}, #{accountStatus}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{status})
+	</insert>
+
+	<update id="updatePartial">
+		<if test="accountId != null">
+			update DIAMOND_MASTER_ACCOUNTS
+			<set>
+				<if test="accountId != null"          > account_id          = #{accountId}          , </if>
+				<if test="accountName != null"        > account_name        = #{accountName}        , </if>
+				<if test="accountDescription != null" > account_description = #{accountDescription} , </if>
+				<if test="accountCurrency != null"    > account_currency    = #{accountCurrency}    , </if>
+				<if test="accountStatus != null"      > account_status      = #{accountStatus}      , </if>
+				<if test="attr1 != null"              > attr1               = #{attr1}              , </if>
+				<if test="attr2 != null"              > attr2               = #{attr2}              , </if>
+				<if test="attr3 != null"              > attr3               = #{attr3}              , </if>
+				<if test="attr4 != null"              > attr4               = #{attr4}              , </if>
+				<if test="createBy != null"           > create_by           = #{createBy}           , </if>
+				<if test="createDate != null"         > create_date         = #{createDate}         , </if>
+				<if test="updateBy != null"           > update_by           = #{updateBy}           , </if>
+				<if test="updateDate != null"         > update_date         = #{updateDate}         , </if>
+				<if test="status != null"             > status              = #{status}             , </if>
+			</set>
+			<where>
+				account_id = ${accountId}
+			</where>
+		</if>
+	</update>
+</mapper>

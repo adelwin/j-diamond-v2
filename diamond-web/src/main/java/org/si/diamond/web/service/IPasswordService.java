@@ -10,6 +10,7 @@
 
 package org.si.diamond.web.service;
 
+import org.si.diamond.base.context.LoginContext;
 import org.si.diamond.base.exception.BaseServiceException;
 import org.si.diamond.base.exception.CipherException;
 import org.si.diamond.base.service.IBaseService;
@@ -22,5 +23,9 @@ public interface IPasswordService extends IBaseService {
 	public PasswordModel getPasswordById(String passwordId) throws BaseServiceException;
 	public List<PasswordModel> getPasswordListByCriteria(PasswordModel criterion) throws BaseServiceException;
 	public List<PasswordModel> getPasswordListByUserId(String userId) throws BaseServiceException;
+	public void addPassword(LoginContext loginContext, PasswordModel passwordModel) throws BaseServiceException;
+	public void deactivatePassword(LoginContext loginContext, PasswordModel passwordModel) throws BaseServiceException;
+
 	public String decrypt(String password, String salt) throws CipherException;
+	public String encrypt(String password, String salt) throws CipherException;
 }

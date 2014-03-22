@@ -20,6 +20,8 @@
 		<property name="userRoleService" ref="IUserRoleService"/>
 		<property name="passwordService" ref="IPasswordService"/>
 		<property name="mailService" ref="IMailService"/>
+		<property name="accountService" ref="IAccountService"/>
+		<property name="authenticationService" ref="IAuthenticationService"/>
 	</bean>
 
 </beans>

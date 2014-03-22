@@ -7,7 +7,7 @@
 	
 	<bean id="defaultMessageParser" class="org.si.diamond.task.parser.DefaultMessageParser"/>
 
-	<bean id="ILookupService" class="org.si.diamond.web.service.impl.LookupServiceImpl">
+	<bean id="ILookupService" class="org.si.diamond.web.service.impl.LookupServiceImpl" scope="singleton" init-method="initialize">
 		<property name="lookupDao" ref="ILookupDao"/>
 	</bean>
 
@@ -27,6 +27,16 @@
 		<property name="mailDao" ref="IMailDao"/>
 	</bean>
 
+	<bean id="IAccountService" class="org.si.diamond.web.service.impl.AccountServiceImpl">
+		<property name="accountDao" ref="IAccountDao"/>
+	</bean>
+
+	<bean id="IAuthenticationService" class="org.si.diamond.web.service.impl.AuthenticationServiceImpl">
+		<property name="lookupService" ref="ILookupService"/>
+		<property name="passwordService" ref="IPasswordService"/>
+		<property name="userRoleService" ref="IUserRoleService"/>
+		<property name="userService" ref="IUserService"/>
+	</bean>
 	<!-- 
 	<bean id="ITransactionService" class="org.si.diamond.web.service.impl.TransactionServiceImpl">
 		<property name="txMessageDao" ref="ITxMessageDao"/>

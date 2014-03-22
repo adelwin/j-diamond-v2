@@ -42,4 +42,9 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 		<property name="modelClass" value="org.si.diamond.web.model.MailModel"/>
 	</bean>
+
+	<bean id="IAccountDao" class="org.si.diamond.base.dao.impl.BaseDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="modelClass" value="org.si.diamond.web.model.AccountModel"/>
+	</bean>
 </beans>

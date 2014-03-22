@@ -16,10 +16,22 @@
 		</layout>
 	</appender>
 	
-<!--	<logger name="com.si.diamond.web.task">-->
-<!--		<level value="error"/>-->
-<!--	</logger>-->
-	
+	<logger name="org.springframework">
+		<level value="error"/>
+	</logger>
+
+	<logger name="org.mybatis">
+		<level value="error"/>
+	</logger>
+
+	<logger name="org.apachel">
+		<level value="error"/>
+	</logger>
+
+	<logger name="java.sql">
+		<level value="error"/>
+	</logger>
+
 	<root>
 		<priority value="debug"></priority>
 		<appender-ref ref="CDebug" />

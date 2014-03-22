@@ -21,7 +21,7 @@
 		<result property="status"		column="status"			/>
 	</resultMap>
 	
-	<sql id="base_select_lookup_model">
+	<sql id="base_select">
 		SELECT lookup_id,
 		       lookup_type,
 		       lookup_code,
@@ -39,30 +39,86 @@
 		       status
 		  FROM diamond_core_Lookups
 	</sql>
+
+	<sql id="order_clause">
+		 ORDER BY cast(lookup_id as signed integer)
+	</sql>
 	
 	<select id="getById" resultMap="rLookupModel">
-		<include refid="base_select_lookup_model"/>
+		<include refid="base_select"/>
 		<where>
 			lookup_id = #{lookupId}
 		</where>
 	</select>
 
 	<select id="getByCode" resultMap="rLookupModel">
-		<include refid="base_select_lookup_model"/>
+		<include refid="base_select"/>
 		<where>
 			lookup_code = #{lookupCode}
 		</where>
 	</select>
 
 	<select id="getByType" resultMap="rLookupModel">
-		<include refid="base_select_lookup_model"/>
+		<include refid="base_select"/>
 		<where>
 			lookup_type = #{lookupType}
 		</where>
 	</select>
 	
 	<select id="listAll" resultMap="rLookupModel">
-		<include refid="base_select_lookup_model"/>
+		<include refid="base_select"/>
+	</select>
+
+	<select id="getListByExample" resultMap="rLookupModel">
+		<include refid="base_select"/>
+		<where>
+			<if test="lookupId != null">
+				lookup_id = #{lookupId}
+			</if>
+			<if test="lookupType != null">
+				AND lookup_type = #{lookupType}
+			</if>
+			<if test="lookupCode != null">
+				AND lookup_code LIKE #{lookupCode}
+			</if>
+			<if test="lookupValue != null">
+				AND lookup_value LIKE #{lookupValue}
+			</if>
+			<if test="isDefault != null">
+				AND is_default LIKE #{isDefault}
+			</if>
+			<if test="sequenceNo != null">
+				AND sequence_no LIKE #{sequenceNo}
+			</if>
+			<if test="attr1 != null">
+				AND attr1 = #{attr1}
+			</if>
+			<if test="attr2 != null">
+				AND attr2 = #{attr2}
+			</if>
+			<if test="attr3 != null">
+				AND attr3 = #{attr3}
+			</if>
+			<if test="attr4 != null">
+				AND attr4 = #{attr4}
+			</if>
+			<if test="createBy != null">
+				AND create_by = #{createBy}
+			</if>
+			<if test="createDate != null">
+				AND create_date = #{createDate}
+			</if>
+			<if test="updateBy != null">
+				AND update_by = #{updateBy}
+			</if>
+			<if test="updateDate != null">
+				AND update_date = #{updateDate}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+		</where>
+		<include refid="order_clause"/>
 	</select>
 
 </mapper>

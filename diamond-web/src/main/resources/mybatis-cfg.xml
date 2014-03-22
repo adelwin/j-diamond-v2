@@ -8,5 +8,7 @@
 		<mapper resource="mappers/DiamondCoreUserRoles.xml"/>
 		<mapper resource="mappers/DiamondCorePasswords.xml"/>
 		<mapper resource="mappers/DiamondCoreMails.xml"/>
+
+		<mapper resource="mappers/DiamondMasterAccounts.xml"/>
 	</mappers>
 </configuration>
