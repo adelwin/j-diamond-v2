@@ -58,7 +58,7 @@ public class AccountServiceImpl extends BaseServiceImpl implements IAccountServi
 	@Override
 	public void addAccount(LoginContext loginContext, AccountModel accountModel) throws BaseServiceException {
 		try {
-			accountModel.setCreateBy((String) loginContext.getAttribute(LoginContext.KEY_USER_ID));
+			accountModel.setCreateBy((String) loginContext.getAttribute(LoginContext.KEY_USER_CODE));
 			accountModel.setCreateDate(new Date());
 			this.getAccountDao().insert(accountModel);
 		} catch (BaseDaoException e) {
@@ -70,8 +70,7 @@ public class AccountServiceImpl extends BaseServiceImpl implements IAccountServi
 	@Override
 	public void updateAccount(LoginContext loginContext, AccountModel accountModel) throws BaseServiceException {
 		try {
-			accountModel.setUpdateBy((String) loginContext.getAttribute(LoginContext.KEY_USER_ID));
-			accountModel.setUpdateDate(new Date());
+			this.setCommonAttributesForUpdate(loginContext,accountModel);
 			this.getAccountDao().updatePartial(accountModel, accountModel);
 		} catch (BaseDaoException e) {
 			logger.error(e.getMessage(), e);

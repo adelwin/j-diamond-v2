@@ -14,13 +14,17 @@
 			http://www.springframework.org/schema/context 
 			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	
-	<bean id="HelloAction" class="org.si.diamond.web.action.HelloAction" scope="prototype">
+	<bean id="HelloAction" class="org.si.diamond.web.action.HelloAction">
 		<property name="lookupService" ref="ILookupService"/>
 		<property name="userService" ref="IUserService"/>
 		<property name="userRoleService" ref="IUserRoleService"/>
 		<property name="passwordService" ref="IPasswordService"/>
 		<property name="mailService" ref="IMailService"/>
 		<property name="accountService" ref="IAccountService"/>
+		<property name="authenticationService" ref="IAuthenticationService"/>
+	</bean>
+
+	<bean id="LoginAction" class="org.si.diamond.web.action.LoginAction">
 		<property name="authenticationService" ref="IAuthenticationService"/>
 	</bean>
 

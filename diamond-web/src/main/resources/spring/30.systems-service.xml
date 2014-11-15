@@ -7,7 +7,7 @@
 	
 	<bean id="defaultMessageParser" class="org.si.diamond.task.parser.DefaultMessageParser"/>
 
-	<bean id="ILookupService" class="org.si.diamond.web.service.impl.LookupServiceImpl" scope="singleton" init-method="initialize">
+	<bean id="ILookupService" class="org.si.diamond.web.service.impl.LookupServiceImpl" init-method="initialize">
 		<property name="lookupDao" ref="ILookupDao"/>
 	</bean>
 

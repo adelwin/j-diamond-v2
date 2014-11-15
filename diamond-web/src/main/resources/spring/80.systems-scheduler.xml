@@ -48,7 +48,7 @@
 	</bean>
 	-->
 	
-	<bean id="customTask" class="org.si.diamond.web.task.CustomTask" scope="prototype">
+	<bean id="watchDocTask" class="org.si.diamond.web.task.WatchDogTask" scope="prototype">
 	</bean>
 	
 	
@@ -59,6 +59,6 @@
 <!-- 		<task:scheduled ref="registrationCheckerTask"		method="doTask" fixed-delay="100000"/> -->
 <!-- 		<task:scheduled ref="exceptionRequestResponderTask"	method="doTask" fixed-delay="100000"/> -->
 <!-- 		<task:scheduled ref="securityDetailsCheckerTask"	method="doTask" fixed-delay="100000"/> -->
-		<task:scheduled ref="customTask"					method="doTask" cron="10 * * * * *"/>
+		<task:scheduled ref="watchDocTask"					    method="doTask" cron="00 */10 * * * *"/> <!-- Every 10 minutes -->
 	</task:scheduled-tasks>
 </beans>

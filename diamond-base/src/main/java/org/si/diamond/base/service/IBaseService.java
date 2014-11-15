@@ -5,6 +5,10 @@
  */
 package org.si.diamond.base.service;
 
-public interface IBaseService {
+import org.si.diamond.base.context.LoginContext;
+import org.si.diamond.base.model.CommonModel;
 
+public interface IBaseService {
+	void setCommonAttributesForCreate(LoginContext loginContext, CommonModel commonModel);
+	void setCommonAttributesForUpdate(LoginContext loginContext, CommonModel commonModel);
 }

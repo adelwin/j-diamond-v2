@@ -1,39 +1,25 @@
 <!doctype html>
+<html>
 <head>
 	<meta charset="utf-8">
-	<title>Our First HTML5 Page</title>
+	<title>Adelwin</title>
 	<meta name="description" content="Welcome to my basic template.">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-<div id="wrapper">
-	<header>
-		<h1>Welcome, one and all!</h1>
-
+<!-- Adding the ng-app declaration to initialize AngularJS -->
+	<title>JDiamond V2 Expense Tracker</title>
+	<div id="main" ng-app ng-controller="MainController">
 		<nav>
-			<ul>
-				<li><a rel="external" href="#">Home</a></li>
-				<li><a rel="external" href="#">About us</a></li>
-				<li><a rel="external" href="#">Contacts</a></li>
-			</ul>
+			<a href="#" ng-repeat="menu in menus" ng-click="menuClick(menu)" ng-class="{active:menu.active}">
+				{{menu.name}} | {{menu.active}}
+			</a>
 		</nav>
-	</header>
-
-	<div id="core" class="clearfix">
-		<section id="left">
-			<p>some content here.</p>
-		</section>
-
-		<section id="right">
-			<p>but some here as well!</p>
-		</section>
+		<br>
+		<p>You chose <b>{{menus[index].name}}</b></p>
 	</div>
-
-	<footer>
-		<p>Some copyright and legal notices here. Maybe use the © symbol a bit.</p>
-	</footer>
-</div>
-
+	<script src="js/angular.min.js"></script>
+	<script src="js/controller.js"></script>
 </body>
 </html>

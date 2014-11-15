@@ -1,22 +1,40 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                                   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.si.diamond</groupId>
 	<artifactId>diamond-parent</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1.0</version>
 	<packaging>pom</packaging>
 	<name>diamond-parent</name>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 
 	<modules>
 		<module>../diamond-base</module>
 		<module>../diamond-mail</module>
 		<module>../diamond-task</module>
+		<module>../diamond-sftp</module>
 		<module>../diamond-web</module>
 	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version-diamond>${project.version}</version-diamond>
+		<version-junit>4.8.1</version-junit>
+		<version-javax-mail>1.4.1</version-javax-mail>
+		<version-struts2>2.2.1</version-struts2>
+		<version-spring>3.0.5.RELEASE</version-spring>
+		<version-cglib>2.2</version-cglib>
+		<version-mybatis>3.0.4</version-mybatis>
+		<version-mybatis-spring>1.0.0-RC3</version-mybatis-spring>
+		<version-slf4j-log4j12>1.5.8</version-slf4j-log4j12>
+		<version-mysqlconnector>5.1.29</version-mysqlconnector>
+		<version-servlet-api>2.5</version-servlet-api>
+		<version-commons-codec>1.9</version-commons-codec>
+		<version-aspectjweaver>1.6.8</version-aspectjweaver>
+		<version-javassist>3.8.0.GA</version-javassist>
+	</properties>
 
 	<build>
 		<pluginManagement>

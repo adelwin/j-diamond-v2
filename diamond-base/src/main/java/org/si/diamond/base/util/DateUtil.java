@@ -39,4 +39,11 @@ public class DateUtil {
 		return simpleDateFormat.parse(inputDate);
 	}
 
+	public static final boolean dateWithinRange(Date date, Date rangeStart, Date rangeEnd) {
+		if (rangeStart.before(date) && rangeEnd.after(date)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

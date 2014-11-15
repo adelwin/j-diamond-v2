@@ -30,7 +30,7 @@ public abstract class BaseAction extends ActionSupport {
 		try {
 			originalActionResult = this.action();
 		} catch (Exception e) {
-			logger.debug("Exception was thrown from inside the action() method");
+			logger.error("Exception was thrown from inside the action() method");
 			this.addActionError("An Error has occurred, for details of the error, please contact your system administrator");
 			this.addActionError("Error Code : " + System.currentTimeMillis());
 			this.addActionError(e.getMessage());

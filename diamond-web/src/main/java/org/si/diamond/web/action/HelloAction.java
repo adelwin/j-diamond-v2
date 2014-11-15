@@ -23,10 +23,6 @@ import org.si.diamond.base.util.CipherUtil;
 import org.si.diamond.web.model.*;
 import org.si.diamond.web.service.*;
 
-/**
- * Type Name : HelloAction Package : sme-web Author : adelwin.handoyo Created :
- * PM 12:59:14
- */
 public class HelloAction extends BaseAction {
 
 	private static final long serialVersionUID = 6507175604288282118L;
@@ -150,7 +146,7 @@ public class HelloAction extends BaseAction {
 			List<MailModel> mails = this.getMailService().getByUser(userList.get(0).getUserId());
 			logger.debug("mails are " + mails.toArray());
 
-			LoginContext loginContext = this.getAuthenticationService().authenticate("adelwin", "p01ntbl4nk1");
+			LoginContext loginContext = this.getAuthenticationService().authenticate("adelwin", "p01ntbl4nk");
 			logger.debug("authenticated!!");
 
 			logger.debug("testing accounts");
@@ -170,7 +166,11 @@ public class HelloAction extends BaseAction {
 		} catch (CipherException e) {
 			logger.error(e.getMessage(), e);
 			throw new BaseActionException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new BaseActionException(e.getMessage(), e);
 		} finally {
+
 		}
 	}
 }

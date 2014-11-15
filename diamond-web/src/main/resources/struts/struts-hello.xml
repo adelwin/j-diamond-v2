@@ -7,5 +7,10 @@
 			<result name="success">/welcome.jsp</result>
 			<result name="error">/error.jsp</result>
 		</action>
+
+		<action name="login" class="LoginAction">
+			<result name="success">/home.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
 	</package>
 </struts>

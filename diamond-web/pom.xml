@@ -1,12 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                                   http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.si.diamond</groupId>
 	<artifactId>diamond-web</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1.0</version>
 	<name>diamond-web</name>
 	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>org.si.diamond</groupId>
+		<artifactId>diamond-parent</artifactId>
+		<version>1.1.0</version>
+		<relativePath>../diamond-parent</relativePath>
+	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +27,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>${version-junit}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -25,19 +35,20 @@
 		<dependency>
 			<groupId>org.si.diamond</groupId>
 			<artifactId>diamond-base</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${version-diamond}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.si.diamond</groupId>
 			<artifactId>diamond-mail</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${version-diamond}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.si.diamond</groupId>
 			<artifactId>diamond-task</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${version-diamond}</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<finalName>diamond-web</finalName>
 		<resources>
